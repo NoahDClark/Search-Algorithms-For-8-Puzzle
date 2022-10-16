@@ -78,7 +78,7 @@ def appendMoves(nodeQueue):
     #    print (nodeQueue.queue[i][1]._tiles)
     #print("AFTER")
     
-    def moveUP(currentNode,x,y):
+def moveUP(currentNode,x,y):
     tempDepth = -1
     if(currentNode._depth != -1):
         tempDepth = currentNode._depth + 2
@@ -322,6 +322,7 @@ presetList = []
 presetList.append(arrayOne)
 presetList.append(arrayTwo)
 presetList.append(arrayThree)
+presetList.append(arrayFour)
 
 
 
