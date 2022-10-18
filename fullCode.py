@@ -71,7 +71,7 @@ def appendMoves(nodeQueue, stackVisited=None):
         
     if (y<2):
         temp2 = moveRIGHT(current,x,y)
-        if pqInstance:
+        if pqInstance:#NDC
             nodeQueue.put((temp2._fn, temp2))
         else:
             nodeQueue.append(temp2)
@@ -236,7 +236,7 @@ def UCSMethod(firstNode): #Takes in a node
     while(notFinalState(nodeQueue.queue[0][1])): #Continues until final state is found
         count = count+1
         appendMoves(nodeQueue) #Calls appendMoves, most imporant function here
-        if(count > 100000): #Break at 100000 nodes to stop program from running endlessly and killing my computer
+        if(count > 200000): #Break at 100000 nodes to stop program from running endlessly and killing my computer
             break
 
     tt = (time.time() - start_time)
@@ -252,7 +252,7 @@ def BFSMethod(firstNode):
     while(notFinalState(nodeQueue.queue[0][1])):
         count = count+1
         appendMoves(nodeQueue)
-        if(count > 100000):
+        if(count > 200000):
             break
 
     tt = (time.time() - start_time)
@@ -268,7 +268,7 @@ def AStarMethod(firstNode):
     while(notFinalState(nodeQueue.queue[0][1])):
         count = count+1
         appendMoves(nodeQueue)
-        if(count > 100000):
+        if(count > 200000):
             break
 
     tt = (time.time() - start_time)
@@ -285,13 +285,13 @@ def DFSMethod(firstNode): #Takes in a node
     previous = None
     
     while(notFinalState(nodeStack[len(nodeStack)-1])): #While most recent node (last one) is not final state:
-        count = count+1
+        count = count+1 #NDC
         if nodeStack[len(nodeStack)-1]._tiles not in visitedNodes: #Makes sure node has not already been checked
             appendMoves(nodeStack, visitedNodes) #Calls appendMoves, most important function
         else:
             nodeStack.pop() #pops off nodes that have already been visited
             count = count - 1
-        if(count > 100000): #Stops loop from destroying my computer by capping nodes at 100000
+        if(count > 25000): #Stops loop from destroying my computer by capping nodes at 100000
             break
         
     tt = (time.time() - start_time)
@@ -403,7 +403,7 @@ import random
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 import numpy as np
-
+#NDC
 
 #Create an instance of Tkinter frame or window
 window = Tk()
@@ -416,7 +416,8 @@ labelTwo = Label(window, text="Nodes visited when solving with DFS: ", font=("Ti
 labelThree = Label(window, text="Nodes visited when solving with UCS: ", font=("Times",14)).place(x=850,y=300)
 labelFour = Label(window, text="Nodes visited when solving with BFS: ", font=("Times",14)).place(x=850,y=450)
 labelFive = Label(window, text="Nodes visited when solving with A*: ", font=("Times",14)).place(x=850,y=600)
-#labelFour = Label(window, text="TEMP LINE \n TEMP LINE \n TEMP LINE \n TEMP LINE.\n TEMP LINE \n TEMP LINE.", font=("Times",14)).place(x=850,y=600)
+labelSix = Label(window, text="If DFS == 25001 OR IF UCS, BFS, A* == 200001 \n then the algorithm did not find a solution and stopped.", font=("Times",14)).place(x=400,y=700)
+#labelFour = Label(window, text="TEMP LINE \n NDC TEMP LINE \n NDC TEMP LINE \n NDC TEMP LINE.\n NDC TEMP LINE \n TEMP LINE.", font=("Times",14)).place(x=850,y=600)
 
 canvas.draw()
 canvas.get_tk_widget().place(x=300,y=200)
